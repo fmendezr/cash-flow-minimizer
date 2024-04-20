@@ -146,15 +146,27 @@ void CashFlowMinimizer::handleSplitSubgroup()
     while (true)
     {
         string debtorName;
-        cout << "Enter the debtor's name (if no more debtors, enter END): " ;
-        cin >> debtorName;
-        if (debtorName == "END" ) break;
-        if (!persons.count(debtorName))
+        do 
         {
-            cout << "Person was not in trip." << endl;
+            cout << "Enter the debtor's name (if no more debtors, enter END): " ;
+            cin >> debtorName;
+            if (debtorName == "END" ) break;
+            if (!persons.count(debtorName))
+            {
+                string userinput;
+                cout << "Person was not in trip. Do you want to add them to the group? Enter Y for 'yes', N for 'no'" << endl;
+                cin >> userinput;
+
+                if (userinput == "Y"){
+                    graph.addVertex();
+                    persons[debtorName] = persons.size();
+                    numPeople++;
+                }
+                else continue;
+            }
+            debtorsCodes.push_back(persons[debtorName]);
             break;
-        }
-        debtorsCodes.push_back(persons[debtorName]);
+        } while (true);
     }
 
     float amount;
