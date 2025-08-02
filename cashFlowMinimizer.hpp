@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 #include <iostream>
-#include "graph.hpp"
+#include <vector>
 
 using namespace std;
 
@@ -44,7 +44,7 @@ private:
     map<string, int> persons;           //map to store individual's names and corresponding code
     vector<Receipt> ReceiptLog;         //vector of all input transactions
     vector<Transaction> transactionLog; //vector of minized transactions
-    Graph graph;                        //adjacency matrix
+    map<int, float> netBalances;        //map to store net balance for each person (personCode -> netBalance)
     bool endInput;                      //control for loop
     
     //helper functions
@@ -65,6 +65,8 @@ private:
     void minimizeTransactions();    //find minimum transactions
 
     void giveFinalOutput();         //display output
+    
+    void updateNetBalances(int creditorCode, vector<int> debtorCodes, float amount); //update net balances for a transaction
 };
 
 #endif 

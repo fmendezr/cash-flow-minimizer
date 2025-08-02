@@ -43,7 +43,7 @@ The project is organized into several key components:
 - **`CashFlowMinimizer`**: Main application class that handles user interaction and orchestrates the minimization process
 - **`Receipt`**: Represents individual input transactions with debtor codes, creditor code, amount, and description
 - **`Transaction`**: Represents optimized transactions for final settlement
-- **`Graph`**: Implements an adjacency matrix to track debts between all participants
+- **Net Balances Map**: Simple map storing net balance for each person (personCode → netBalance)
 
 ### Key Algorithms
 
@@ -105,21 +105,24 @@ cash-flow-minimizer/
 ├── app.cpp                 # Main application entry point
 ├── cashFlowMinimizer.hpp   # Header file with class definitions
 ├── cashFlowMinimizer.cpp   # Main implementation of the cash flow minimizer
-├── graph.hpp              # Graph class header for adjacency matrix
-├── graph.cpp              # Graph implementation
 └── README.md              # This file
 ```
+
+### 📚 Implementation History
+
+The project originally used an adjacency matrix implementation but was refactored to use a much more efficient net-balance-only approach. This optimization reduced space complexity from O(n²) to O(n) and improved transaction processing from O(n) to O(1) per transaction.
 
 ## 🔧 Technical Details
 
 ### Data Structures Used
-- **Adjacency Matrix**: Tracks debts between all pairs of people
-- **Maps**: Store person names to unique codes and net balances
+- **Net Balances Map**: Tracks net balance for each person (O(n) space)
+- **Person Names Map**: Maps person names to unique codes
 - **Vectors**: Store transaction history and optimized transactions
 
 ### Algorithm Complexity
-- **Time Complexity**: O(n²) where n is the number of people
-- **Space Complexity**: O(n²) for the adjacency matrix
+- **Time Complexity**: O(n²) for minimization algorithm, O(1) per transaction input
+- **Space Complexity**: O(n) for storing net balances (improved from O(n²))
+- **Transaction Processing**: O(1) per transaction (improved from O(n) per transaction)
 
 ### Key Methods
 - `minimizeTransactions()`: Core algorithm that finds optimal settlement
@@ -164,7 +167,7 @@ This project is open source and available under the MIT License.
 ## 🎓 Learning Objectives
 
 This project demonstrates:
-- **Graph Theory**: Using adjacency matrices to model financial relationships
+- **Algorithm Optimization**: Refactoring from O(n²) to O(n) space complexity
 - **Algorithm Design**: Implementing optimization algorithms
 - **C++ Programming**: Classes, templates, STL containers, and memory management
 - **User Interface Design**: Creating intuitive console-based interactions
